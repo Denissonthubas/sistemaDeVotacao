@@ -1,0 +1,33 @@
+import mongoose from "mongoose";
+
+const notachema = mongoose.Schema(
+  {
+    id:{
+      type: String
+    },
+    categoria: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "participante",
+      required: [true,"A categoria é obrigatória"]
+    },
+    participante:{
+      type: mongoose.Schema.Types.ObjectId,
+      ref:"participante",
+      required: [true, ,"O participante é obrigatória"]
+    },
+    jurado:{
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "jurado",
+      required: [true, ,"O jurado é obrigatória"]
+    },
+    notaJurado: {
+      type: Number,
+      min:[0,"Nota deve está entre 0 e 10. Valor fornecido: {VALUE} "],
+      max:[10, "Nota deve está entre 0 e 10. Valor fornecido: {VALUE}"]
+    }
+  }
+);
+
+const nota = mongoose.model("nota", notachema);
+
+export default nota;

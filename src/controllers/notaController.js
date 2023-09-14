@@ -5,7 +5,7 @@ import mongoose from "mongoose";
 class notaController {
   static listaNotas = async(req,res,next)=>{
     try {
-      const notasResultados = await nota.find();
+      const notasResultados = await nota.find().populate("participante").exec();
       res.status(200).json(notasResultados);
     } catch (erro) {
       next(erro);     
@@ -100,7 +100,7 @@ class notaController {
           },
         },
         {
-          $sort: { totalNota: -1 }, // Ordena por totalNota em ordem decrescente (maior para menor)
+          $sort: { totalNota: -1 }, 
         },
       ])
       res.status(200).json(somaDasNotas)

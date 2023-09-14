@@ -13,15 +13,16 @@ const notachema = mongoose.Schema(
     participante:{
       type: mongoose.Schema.Types.ObjectId,
       ref:"participante",
-      required: [true, ,"O participante é obrigatória"]
+      required: [true,"O participante é obrigatório"]
     },
     jurado:{
       type: mongoose.Schema.Types.ObjectId,
       ref: "jurado",
-      required: [true, ,"O jurado é obrigatória"]
+      required: [true,"O jurado é obrigatório"]
     },
     notaJurado: {
       type: Number,
+      required: [true, ,"A nota é obrigatória"],
       min:[0,"Nota deve está entre 0 e 10. Valor fornecido: {VALUE} "],
       max:[10, "Nota deve está entre 0 e 10. Valor fornecido: {VALUE}"]
     }

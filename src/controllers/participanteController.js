@@ -4,7 +4,7 @@ import { participante } from "../models/index.js";
 class participanteController {
   static listaParticipantes = async(req,res,next)=>{
     try {
-      const participantesResultados = await participante.find();
+      const participantesResultados = await participante.find().sort({ nome: 1 });
       res.status(200).json(participantesResultados);
     } catch (erro) {
       next(erro);      

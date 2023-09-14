@@ -1,5 +1,6 @@
 import NaoEncontrado from "../erros/NaoEncontrado.js"
 import { nota } from "../models/index.js";
+import mongoose from "mongoose";
 
 class notaController {
   static listaNotas = async(req,res,next)=>{
@@ -52,6 +53,9 @@ class notaController {
 
   static somaDasNotasDoParticipante = async (req,res,next)=>{
     try {
+
+      const categoriaSelecionada = req.params.categoria;
+      const categoriaObjectId = new mongoose.Types.ObjectId(categoriaSelecionada);
       const somaDasNotas = await nota.aggregate([
         {$lookup:{
           from: "participantes",
@@ -70,16 +74,38 @@ class notaController {
         {
           $unwind: "$nomeParticipante"
         },
+
         {  $unwind: "$nomeCategoria"
         },
+
+        {
+          $match: {
+            "nomeCategoria._id": categoriaObjectId,
+          },
+        },
+
         {$group:{
-          _id:{Nome:"$nomeParticipante.nome", Categoria:"$nomeCategoria.nomeCategoria"},
+          _id:{Nome:"$nomeParticipante.nome",Personagem: "$nomeParticipante.personagem", Categoria:"$nomeCategoria.nomeCategoria"},
           totalNota: {$sum: "$notaJurado"}
          }
-        }
+        },
+
+        {
+          $project: {
+            _id: 0,
+            Nome: "$_id.Nome",
+            Categoria: "$_id.Categoria",
+            Personagem: "$_id.Personagem",
+            totalNota: 1,
+          },
+        },
+        {
+          $sort: { totalNota: -1 }, // Ordena por totalNota em ordem decrescente (maior para menor)
+        },
       ])
       res.status(200).json(somaDasNotas)
     } catch (erro) {
+      console.log(erro)
       next(erro);
     }
   }

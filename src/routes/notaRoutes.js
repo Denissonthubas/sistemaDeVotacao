@@ -5,7 +5,7 @@ const router = express.Router();
 
 router
   .get("/nota", notaController.listaNotas)
-  .get("/nota/relatorio", notaController.somaDasNotasDoParticipante)
+  .get("/nota/relatorio/:categoria", notaController.somaDasNotasDoParticipante)
   .post("/nota", notaController.cadastroNotas)
   .put("/nota/:id", notaController.atualizarNota)
   .delete("/nota/:id", notaController.deletarNota)

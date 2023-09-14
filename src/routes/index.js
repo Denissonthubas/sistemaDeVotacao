@@ -4,6 +4,7 @@ import jurado from "./juradoRoutes.js";
 import participante from "./participanteRoutes.js";
 import nota from "./notaRoutes.js";
 
+
 const router = express.Router();
 
 router.route("/").get((req,res)=>{
@@ -15,7 +16,10 @@ router.route("/").get((req,res)=>{
     categoria,
     jurado,
     participante,
-    nota
+    nota,
+
+
+   
   );
 
 

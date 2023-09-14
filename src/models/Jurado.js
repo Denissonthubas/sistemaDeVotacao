@@ -12,11 +12,11 @@ const juradoSchema = mongoose.Schema(
     email:{
       type: String
     },
-    categoria:{
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "categoria",
-      required: [true, "A categoria é obrigatória"]
-    }
+    // categoria:{
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   ref: "categoria",
+    //   required: [true, "A categoria é obrigatória"]
+    // }
   }
 );
 

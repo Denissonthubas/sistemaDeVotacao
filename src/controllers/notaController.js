@@ -39,7 +39,7 @@ class notaController {
   static deletarNota = async (req,res,next)=>{
     try {
       const id = req.params.id
-      const notaResultado = await nota.findOneAndDelete({_id: id})
+      const notaResultado = await notaKpop.findOneAndDelete({_id: id})
 
       if(notaResultado !== null){
         res.status(200).send({message:"Nota deletada!"});
